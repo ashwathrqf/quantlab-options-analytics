@@ -44,3 +44,8 @@ def price_option_mc(S:float, K:float, T: float,r:float, sigma:float, option_type
 
     return float(price)
 
+def convergence_curve(S,K,T,r,sigma,option_type,num_simulations,seed=42):
+    payoff=_compute_payoff(S, K, T,r, sigma, option_type, num_simulations, seed)
+    running_mean = np.cumsum(payoff) / np.arange(1, len(payoff) + 1)
+    running_mean *= np.exp(-r * T)
+    return running_mean
