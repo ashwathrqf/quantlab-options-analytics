@@ -20,7 +20,7 @@ def _compute_d1_d2(S:float, K:float, T: float,r:float, sigma:float):
 
     return d1,d2
 
-def price_option(S:float, K:float, T: float,r:float, sigma:float, option_type:str):
+def price_option_bs(S:float, K:float, T: float,r:float, sigma:float, option_type:str):
     """
     Prices a European call or put option using the Black-Scholes model.
 
@@ -44,7 +44,7 @@ def price_option(S:float, K:float, T: float,r:float, sigma:float, option_type:st
     float
         Option price.
     """
-    
+
     _validate_inputs(S, K, T, r, sigma, option_type)
     option_type=option_type.lower()
     d1, d2 = _compute_d1_d2(S, K, T, r, sigma)

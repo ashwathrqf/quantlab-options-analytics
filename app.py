@@ -1,6 +1,6 @@
-from pricing.black_scholes import price_option
+from pricing.black_scholes import price_option_bs
 
-price = price_option(
+price_bs = price_option_bs(
     S=100,
     K=100,
     T=1,
