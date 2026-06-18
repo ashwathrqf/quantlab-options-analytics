@@ -7,6 +7,7 @@ from pricing.monte_carlo import (
     convergence_curve,
 )
 from pricing.greeks import calculate_greeks
+from pricing.binomial import price_option_binomial
 
 from visualization.payoff import payoff_diagram
 from visualization.convergence import convergence_plot
@@ -96,6 +97,13 @@ num_simulations = st.sidebar.slider(
     step=1000,
 )
 
+binomial_steps = st.sidebar.slider(
+    "Binomial Steps",
+    10,
+    500,
+    100,
+)
+
 # ----------------------------------------------------
 # Pricing
 # ----------------------------------------------------
@@ -120,6 +128,16 @@ mc_price = price_option_mc(
     seed=42,
 )
 
+binomial_price = price_option_binomial(
+    S=S,
+    K=K,
+    T=T,
+    r=r,
+    sigma=sigma,
+    option_type=option_type,
+    steps=binomial_steps,
+)
+
 greeks = calculate_greeks(
     S=S,
     K=K,
@@ -133,10 +151,13 @@ greeks = calculate_greeks(
 # Metrics
 # ----------------------------------------------------
 
-error = abs(bs_price - mc_price)
-percentage_error = error / bs_price * 100
+mc_error = abs(bs_price - mc_price)
+mc_percentage_error = (mc_error/bs_price*100)
 
-c1, c2, c3 = st.columns(3)
+binomial_error=abs(bs_price-binomial_price)
+binomial_percentage_error=binomial_error/bs_price*100
+
+c1, c2, c3, c4, c5= st.columns(5)
 
 with c1:
     st.metric(
@@ -152,9 +173,22 @@ with c2:
 
 with c3:
     st.metric(
-        "Difference",
-        f"{error:.4f}",
-        f"{percentage_error:.2f}%",
+        "Binomial Tree",
+        f"{binomial_price:.4f}",
+    )
+
+with c4:
+    st.metric(
+        "MC Error",
+        f"{mc_error:.4f}",
+        f"{mc_percentage_error:.2f}%",
+    )
+
+with c4:
+    st.metric(
+        "Binomial Error",
+        f"{binomial_error:.4f}",
+        f"{binomial_percentage_error:.2f}%",
     )
 
 # ----------------------------------------------------

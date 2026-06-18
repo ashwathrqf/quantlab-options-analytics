@@ -12,7 +12,6 @@ def _validate_inputs(S:float, K:float, T: float,r:float, sigma:float, option_typ
         raise ValueError("Volatility must be +ve")
     if option_type.lower() not in ("call", "put"):
         raise ValueError("Option type must be 'call' or 'put'")
-    pass
 
 def _compute_d1_d2(S:float, K:float, T: float,r:float, sigma:float):
     d1=(np.log(S/K)+T*(r+sigma**2/2))/sigma*np.sqrt(T)
