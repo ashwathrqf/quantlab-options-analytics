@@ -4,6 +4,12 @@ A professional quantitative finance platform for pricing European options, analy
 
 QuantLab implements multiple pricing models, Greeks, implied volatility estimation, Monte Carlo simulation, and live market data integration through an interactive Streamlit dashboard.
 
+### 🚀 Live Demo
+https://quantlab-options-analytics-f9y5tfqmmnbtgfv8pnygu2.streamlit.app/
+
+### 📂 GitHub
+https://github.com/ashwathrqf/quantlab-options-analytics
+
 ---
 
 ## Features
